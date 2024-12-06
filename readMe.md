@@ -5,3 +5,4 @@
 - Day Three ⭐⭐
 - Day Four ⭐⭐
 - Day Five ⭐⭐
+- Day Six ⭐⭐

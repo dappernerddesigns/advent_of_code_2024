@@ -82,25 +82,30 @@ const guardRoute = (map, guard) => {
       guard.stepBack();
       guard.turn();
     } else if (guard.onGrid(map)) {
-      visited.add(`${row},${col}`);
+      visited.add(`${col},${row}`);
     }
   }
 
-  return visited.size;
+  return visited;
 };
 
 // part two
-const blockTheGuard = (map, guard) => {
+const blockTheGuard = (map, guard, locations) => {
+  const placesToObstruct = [...locations].map((coords) => {
+    const [x, y] = coords.split(",");
+    return [+x, +y];
+  });
+
   const validObstructions = [];
-  for (let y = 0; y < map.length; y++) {
-    for (let x = 0; x < map[0].length; x++) {
-      if (map[y][x] === "#" || (x === guard.x && y === guard.y)) continue;
-      const testGuard = new Guard(guard.x, guard.y);
-      if (walkTheMap(map, testGuard, { x, y })) {
-        validObstructions.push({ x, y });
-      }
+  for (let i = 0; i < placesToObstruct.length; i++) {
+    const [x, y] = placesToObstruct[i];
+    if (x === guard.x && y === guard.y) continue;
+    const testGuard = new Guard(guard.x, guard.y);
+    if (walkTheMap(map, testGuard, { x, y })) {
+      validObstructions.push({ x, y });
     }
   }
+
   return validObstructions.length;
 };
 
@@ -136,5 +141,8 @@ const puzzleInput = fs.readFileSync("./inputs/06.txt", "utf-8");
 const input = parseInput(puzzleInput);
 const guardOne = new Guard(input.startCoordinates.x, input.startCoordinates.y);
 const guardTwo = new Guard(input.startCoordinates.x, input.startCoordinates.y);
-console.log(guardRoute(input.map, guardOne));
-console.log(blockTheGuard(input.map, guardTwo));
+const partOne = guardRoute(input.map, guardOne);
+
+const visitedLocations = partOne;
+const partTwo = blockTheGuard(input.map, guardTwo, visitedLocations);
+console.log(partTwo);

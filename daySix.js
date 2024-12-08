@@ -141,7 +141,7 @@ const puzzleInput = fs.readFileSync("./inputs/06.txt", "utf-8");
 const input = parseInput(puzzleInput);
 const guardOne = new Guard(input.startCoordinates.x, input.startCoordinates.y);
 const guardTwo = new Guard(input.startCoordinates.x, input.startCoordinates.y);
-const partOne = guardRoute(input.map, guardOne);
+const partOne = guardRoute(input.map, guardOne).length;
 
 const visitedLocations = partOne;
 const partTwo = blockTheGuard(input.map, guardTwo, visitedLocations);

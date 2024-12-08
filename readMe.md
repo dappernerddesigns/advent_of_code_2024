@@ -7,3 +7,4 @@
 - Day Five ⭐⭐
 - Day Six ⭐⭐
 - Day Seven ⭐⭐
+- Day Eight ⭐⭐
